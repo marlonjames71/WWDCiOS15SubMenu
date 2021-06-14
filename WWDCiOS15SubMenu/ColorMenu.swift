@@ -25,15 +25,17 @@ struct ColorMenu: View {
                 }
                 Divider()
             }
-            Menu("Warm Colors") {
+            Menu {
                 Picker("Warm Colors", selection: $selectedColor) {
                     Text("Pink").tag(Color.pink)
                     Text("Orange").tag(Color.orange)
                     Text("Yellow").tag(Color.yellow)
                     Text("Red").tag(Color.red)
                 }
+            } label: {
+                Label("Warm Colors", systemImage: "sun.max")
             }
-            Menu("Cool Colors") {
+            Menu {
                 Picker("Cool Colors", selection: $selectedColor) {
                     Text("Blue").tag(Color.blue)
                     Text("Cyan").tag(Color.cyan)
@@ -43,8 +45,10 @@ struct ColorMenu: View {
                     Text("Green").tag(Color.green)
                     Text("Purple").tag(Color.purple)
                 }
+            } label: {
+                Label("Cool Colors", systemImage: "snowflake")
             }
-            Menu("System Colors") {
+            Menu {
                 Picker("System Colors", selection: $selectedColor) {
                     Text("Primary").tag(Color.primary)
                     Text("Secondary").tag(Color.secondary)
@@ -69,13 +73,17 @@ struct ColorMenu: View {
                     Text("Tertiary Label").tag(Color(uiColor: .tertiaryLabel))
                     Text("Quaternary Label").tag(Color(uiColor: .quaternaryLabel))
                 }
+            } label: {
+                Label("System Colors", systemImage: "iphone")
             }
-            Menu("Monochrome Colors") {
+            Menu {
                 Picker("Monochrome Colors", selection: $selectedColor) {
                     Text("White").tag(Color.white)
                     Text("Black").tag(Color.black)
                     Text("Gray").tag(Color.gray)
                 }
+            } label: {
+                Label("Monochrome Colors", systemImage: "circle.lefthalf.filled")
             }
         } label: {
             Image(systemName: "list.triangle")
