@@ -35,10 +35,7 @@ struct ContentView: View {
                     previousColor.removeFirst()
                     print(previousColor)
                 } label: {
-                    HStack(spacing: 6) {
-                        Image(systemName: "trash")
-                        Text("Clear Previous Color")
-                    }
+                    Label("Clear Previous Color", systemImage: "trash")
                 }
                 .buttonStyle(.bordered)
                 .tint(.accentColor)
@@ -55,7 +52,7 @@ struct ContentView: View {
                     Text("\(selectedColor.description.capitalized(with: .current))")
                         .frame(width: 200.0)
                         .fixedSize(horizontal: true, vertical: false)
-                        .foregroundColor(selectedColor)
+                        .foregroundColor(validAccentColor)
                 }
             }
         }
