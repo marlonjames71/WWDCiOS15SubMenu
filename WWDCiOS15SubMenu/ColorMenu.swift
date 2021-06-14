@@ -33,7 +33,7 @@ struct ColorMenu: View {
                     Text("Red").tag(Color.red)
                 }
             } label: {
-                Label("Warm Colors", systemImage: "sun.max")
+                Label("Warm Colors", systemImage: "sun.and.horizon.fill")
             }
             Menu {
                 Picker("Cool Colors", selection: $selectedColor) {
