@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3797AF7D267743F800311BEB /* ColorMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3797AF7C267743F800311BEB /* ColorMenu.swift */; };
 		37FD620E2677213800050516 /* WWDCiOS15SubMenuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FD620D2677213800050516 /* WWDCiOS15SubMenuApp.swift */; };
 		37FD62102677213800050516 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FD620F2677213800050516 /* ContentView.swift */; };
 		37FD62122677213B00050516 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37FD62112677213B00050516 /* Assets.xcassets */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3797AF7C267743F800311BEB /* ColorMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMenu.swift; sourceTree = "<group>"; };
 		37FD620A2677213800050516 /* WWDCiOS15SubMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WWDCiOS15SubMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37FD620D2677213800050516 /* WWDCiOS15SubMenuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WWDCiOS15SubMenuApp.swift; sourceTree = "<group>"; };
 		37FD620F2677213800050516 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 			children = (
 				37FD620D2677213800050516 /* WWDCiOS15SubMenuApp.swift */,
 				37FD620F2677213800050516 /* ContentView.swift */,
+				3797AF7C267743F800311BEB /* ColorMenu.swift */,
 				37FD62112677213B00050516 /* Assets.xcassets */,
 				37FD62132677213B00050516 /* Preview Content */,
 			);
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3797AF7D267743F800311BEB /* ColorMenu.swift in Sources */,
 				37FD62102677213800050516 /* ContentView.swift in Sources */,
 				37FD620E2677213800050516 /* WWDCiOS15SubMenuApp.swift in Sources */,
 			);
@@ -277,7 +281,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -307,7 +311,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
