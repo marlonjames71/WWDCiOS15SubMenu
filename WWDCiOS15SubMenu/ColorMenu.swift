@@ -7,10 +7,79 @@
 
 import SwiftUI
 
+// MARK: - Color Type
+
+struct ColorType: Hashable {
+    let swiftUIColor: Color?
+    let uiKitColor: UIColor?
+
+    var color: Color {
+        if let swiftUIColor = swiftUIColor {
+            return swiftUIColor
+        } else if let uiKitColor = uiKitColor {
+            return Color(uiColor: uiKitColor)
+        }
+        return .blue
+    }
+
+    var name: String {
+        var name: String = ""
+
+        if let swiftUIColor = swiftUIColor {
+            name = swiftUIColor.description.capitalized(with: .current)
+        }
+
+        if let uiKitColor = uiKitColor {
+            name = "\(uiKitColor.value(forKey: "_systemColorName") ?? "")"
+        }
+
+        return name
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(color)
+    }
+}
+
+
+// MARK: - Color Collection
+
+struct ColorCollection {
+    enum Collection {
+        case swiftUIWarm
+        case swiftUICool
+        case uiKitWarm
+        case uiKitCool
+        case uiKitStatic
+    }
+
+    // Dynamic SwiftUI Colors
+    static let warmSwiftUIColors: [Color] = [.red, .orange, .yellow, .pink, .brown]
+    static let coolSwiftUIColors: [Color] = [.blue, .cyan, .teal, .mint, .green, .indigo, .purple]
+
+    // Dynamic UIKit Colors
+    static let warmUIKitColors: [UIColor] = [.systemRed, .systemOrange, .systemYellow, .systemPink, .systemBrown]
+    static let coolUIKitColors: [UIColor] = [.systemBlue, .systemTeal, .systemGreen, .systemIndigo, .systemPurple]
+
+    // Static UIKit Colors
+    static let staticUIKitColors: [UIColor] = [.red, .orange, .yellow, .magenta, .purple, .blue, .green, .brown, .cyan, .link]
+
+    static let colorDict: [Collection: [ColorType]] = [
+        .swiftUIWarm: warmSwiftUIColors.map { ColorType(swiftUIColor: $0, uiKitColor: nil) },
+        .swiftUICool: coolSwiftUIColors.map { ColorType(swiftUIColor: $0, uiKitColor: nil) },
+        .uiKitWarm: warmUIKitColors.map { ColorType(swiftUIColor: nil, uiKitColor: $0) },
+        .uiKitCool: coolUIKitColors.map { ColorType(swiftUIColor: nil, uiKitColor: $0) },
+        .uiKitStatic: staticUIKitColors.map { ColorType(swiftUIColor: nil, uiKitColor: $0) }
+    ]
+}
+
+
+// MARK: - Color Menu View
+
 struct ColorMenu: View {
 
-    @Binding var selectedColor: Color
-    @Binding var previousColor: [Color]
+    @Binding var selectedColor: ColorType
+    @Binding var previousColor: [ColorType]
 
     var body: some View {
         Menu {
@@ -20,70 +89,45 @@ struct ColorMenu: View {
                         selectedColor = prevColor
                         previousColor.removeFirst()
                     } label: {
-                        Label("Previous Color (\(prevColor.description.capitalized(with: .current)))", systemImage: "arrow.turn.up.left")
+                        Label("Previous Color (\(prevColor.name))", systemImage: "arrow.turn.up.left")
                     }
                 }
                 Divider()
             }
-            Menu {
-                Picker("Warm Colors", selection: $selectedColor) {
-                    Text("Pink").tag(Color.pink)
-                    Text("Orange").tag(Color.orange)
-                    Text("Yellow").tag(Color.yellow)
-                    Text("Red").tag(Color.red)
-                }
-            } label: {
-                Label("Warm Colors", systemImage: "sun.and.horizon.fill")
-            }
-            Menu {
-                Picker("Cool Colors", selection: $selectedColor) {
-                    Text("Blue").tag(Color.blue)
-                    Text("Cyan").tag(Color.cyan)
-                    Text("Indigo").tag(Color.indigo)
-                    Text("Teal").tag(Color.teal)
-                    Text("Mint").tag(Color.mint)
-                    Text("Green").tag(Color.green)
-                    Text("Purple").tag(Color.purple)
-                }
-            } label: {
-                Label("Cool Colors", systemImage: "snowflake")
-            }
-            Menu {
-                Picker("System Colors", selection: $selectedColor) {
-                    Text("Primary").tag(Color.primary)
-                    Text("Secondary").tag(Color.secondary)
-                    Menu("Grays") {
-                        Picker("Grays", selection: $selectedColor) {
-                            Text("Gray").tag(Color.gray)
-                            Text("System Gray").tag(Color(uiColor: .systemGray))
-                            Text("System Gray 2").tag(Color(uiColor: .systemGray2))
-                            Text("System Gray 3").tag(Color(uiColor: .systemGray3))
-                            Text("System Gray 4").tag(Color(uiColor: .systemGray4))
-                            Text("System Gray 5").tag(Color(uiColor: .systemGray5))
-                            Text("System Gray 6").tag(Color(uiColor: .systemGray6))
-                        }
-                    }
-                    Menu("Background Colors") {
-                        Picker("Grays", selection: $selectedColor) {
-                            Text("System Background").tag(Color(uiColor: .systemBackground))
-                            Text("System Secondary Background").tag(Color(uiColor: .secondarySystemBackground))
-                        }
-                    }
 
-                    Text("Tertiary Label").tag(Color(uiColor: .tertiaryLabel))
-                    Text("Quaternary Label").tag(Color(uiColor: .quaternaryLabel))
-                }
-            } label: {
-                Label("System Colors", systemImage: "iphone")
-            }
             Menu {
-                Picker("Monochrome Colors", selection: $selectedColor) {
-                    Text("White").tag(Color.white)
-                    Text("Black").tag(Color.black)
-                    Text("Gray").tag(Color.gray)
-                }
+                makeSubMenuPicker(
+                    with: ColorCollection.colorDict[.swiftUIWarm]!,
+                    selection: $selectedColor,
+                    label: "Warm Colors",
+                    iconName: .warm)
+                makeSubMenuPicker(
+                    with: ColorCollection.colorDict[.swiftUICool]!,
+                    selection: $selectedColor,
+                    label: "Cool Colors",
+                    iconName: .cool)
             } label: {
-                Label("Monochrome Colors", systemImage: "circle.lefthalf.filled")
+                Label("SwiftUI Colors", systemImage: IconName.swift.rawValue)
+            }
+
+            Menu {
+                makeSubMenuPicker(
+                    with: ColorCollection.colorDict[.uiKitWarm]!,
+                    selection: $selectedColor,
+                    label: "Warm Colors",
+                    iconName: .warm)
+                makeSubMenuPicker(
+                    with: ColorCollection.colorDict[.uiKitCool]!,
+                    selection: $selectedColor,
+                    label: "Cool Colors",
+                    iconName: .cool)
+                makeSubMenuPicker(
+                    with: ColorCollection.colorDict[.uiKitStatic]!,
+                    selection: $selectedColor,
+                    label: "Static Colors",
+                    iconName: .static)
+            } label: {
+                Label("UIKit Colors", systemImage: IconName.swift.rawValue)
             }
         } label: {
             Image(systemName: "list.triangle")
@@ -91,10 +135,32 @@ struct ColorMenu: View {
                 .tint(.primary)
         }
     }
+
+    enum IconName: String {
+        case warm = "sun.and.horizon.fill"
+        case cool = "snowflake"
+        case swift = "swift"
+        case `static` = "circle.and.line.horizontal.fill"
+    }
+
+    private func makeSubMenuPicker(with colors: [ColorType],
+                                   selection: Binding<ColorType>,
+                                   label: String,
+                                   iconName: IconName) -> some View {
+        Menu {
+            Picker(label, selection: selection) {
+                ForEach(colors, id: \.color) { colorType in
+                    Text(colorType.name).tag(colorType)
+                }
+            }
+        } label: {
+            Label(label, systemImage: iconName.rawValue)
+        }
+    }
 }
 
 struct ColorMenu_Previews: PreviewProvider {
     static var previews: some View {
-        ColorMenu(selectedColor: .constant(.pink), previousColor: .constant([]))
+        ColorMenu(selectedColor: .constant(ColorType(swiftUIColor: .pink, uiKitColor: nil)), previousColor: .constant([]))
     }
 }

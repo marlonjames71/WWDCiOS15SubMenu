@@ -9,13 +9,19 @@ import SwiftUI
 
 struct ContentView: View {
 
-    @State private var selectedColor: Color = .pink
-    @State private var previousColor: [Color] = [.pink]
+    @State private var selectedColor: ColorType
+    @State private var previousColor: [ColorType]
+
+    init() {
+        let startingColor = ColorType(swiftUIColor: .pink, uiKitColor: nil)
+        _selectedColor = State(initialValue: startingColor)
+        _previousColor = State(initialValue: [startingColor])
+    }
 
     var body: some View {
         NavigationView {
             VStack {
-                selectedColor
+                selectedColor.color
                     .frame(height: 275)
                     .frame(maxWidth: .infinity)
                     .cornerRadius(16)
@@ -49,7 +55,7 @@ struct ContentView: View {
                     ColorMenu(selectedColor: $selectedColor, previousColor: $previousColor)
                 }
                 ToolbarItem(placement: .principal) {
-                    Text("\(selectedColor.description.capitalized(with: .current))")
+                    Text("\(selectedColor.name)")
                         .frame(width: 200.0)
                         .fixedSize(horizontal: true, vertical: false)
                         .foregroundColor(validAccentColor)
@@ -61,18 +67,18 @@ struct ContentView: View {
 
     private var validAccentColor: Color {
         withAnimation {
-            switch selectedColor {
-            case .pink, .red, .orange, .yellow, .blue, .cyan, .teal, .mint, .indigo, .green, .purple, .primary:
-                return selectedColor
-            default:
+            switch selectedColor.color {
+            case .black, .white:
                 return .primary
+            default:
+                return selectedColor.color
             }
         }
     }
 
     private var borderColor: Color {
         withAnimation {
-            switch selectedColor {
+            switch selectedColor.color {
             case Color(uiColor: .systemBackground), .black, .primary, .white:
                 return .gray
             default:
