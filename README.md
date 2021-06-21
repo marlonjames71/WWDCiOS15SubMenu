@@ -8,4 +8,4 @@ I made this little repo cause I caught a glimpse of the sweet new `Menu` animati
 - Material Backgrounds
 
 
-<img src="ColorSwatch.png" width="400"> <img src="ColorSwatchMenu.png" width="400">
+<img src="README%20Assets/ColorSwatch.png" width="400"> <img src="README%20Assets/ColorSwatchMenu.png" width="400">
