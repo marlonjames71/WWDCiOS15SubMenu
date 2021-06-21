@@ -6,3 +6,6 @@ I made this little repo cause I caught a glimpse of the sweet new `Menu` animati
 - New button system (`buttonStyle`, `tint`)
 - Foreground Styles
 - Material Backgrounds
+
+
+<img src="ColorSwatch.png" width="400"> <img src="ColorSwatchMenu.png" width="400">
