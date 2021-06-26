@@ -92,6 +92,6 @@ struct ColorMenu: View {
 
 struct ColorMenu_Previews: PreviewProvider {
     static var previews: some View {
-        ColorMenu(selectedColor: .constant(ColorType(swiftUIColor: .pink, uiKitColor: nil)), previousColor: .constant([]))
+        ColorMenu(selectedColor: .constant(ColorType(.pink)), previousColor: .constant([]))
     }
 }

@@ -24,7 +24,7 @@ struct ContentView: View {
     ]
 
     init() {
-        let startingColor = ColorType(swiftUIColor: .pink, uiKitColor: nil)
+        let startingColor = ColorType(.pink)
         _selectedColor = State(initialValue: startingColor)
         _previousColor = State(initialValue: [startingColor])
     }
