@@ -10,6 +10,9 @@ import SwiftUI
 // MARK: - Color Type
 
 struct ColorType: Hashable {
+
+    // MARK: - Properties
+
     let swiftUIColor: Color?
     let uiKitColor: UIColor?
 
@@ -38,6 +41,22 @@ struct ColorType: Hashable {
 
     var isSwiftUIColor: Bool { swiftUIColor != nil }
 
+
+    // MARK: - Init
+
+    init(_ swiftUIColor: Color) {
+        self.swiftUIColor = swiftUIColor
+        self.uiKitColor = nil
+    }
+
+    init(_ uiKitColor: UIColor) {
+        self.uiKitColor = uiKitColor
+        self.swiftUIColor = nil
+    }
+
+
+    // MARK: - Helpers
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(color)
     }
@@ -47,6 +66,7 @@ struct ColorType: Hashable {
 // MARK: - Color Collection
 
 struct ColorCollection {
+
     enum Collection {
         case allSwiftUIColors
         case swiftUIWarm
@@ -69,11 +89,11 @@ struct ColorCollection {
     static let staticUIKitColors: [UIColor] = [.red, .orange, .yellow, .magenta, .purple, .blue, .green, .brown, .cyan, .link]
 
     static let colorDict: [Collection: [ColorType]] = [
-        .allSwiftUIColors: allSwiftUIColors.map { ColorType(swiftUIColor: $0, uiKitColor: nil) },
-        .swiftUIWarm: warmSwiftUIColors.map { ColorType(swiftUIColor: $0, uiKitColor: nil) },
-        .swiftUICool: coolSwiftUIColors.map { ColorType(swiftUIColor: $0, uiKitColor: nil) },
-        .uiKitWarm: warmUIKitColors.map { ColorType(swiftUIColor: nil, uiKitColor: $0) },
-        .uiKitCool: coolUIKitColors.map { ColorType(swiftUIColor: nil, uiKitColor: $0) },
-        .uiKitStatic: staticUIKitColors.map { ColorType(swiftUIColor: nil, uiKitColor: $0) }
+        .allSwiftUIColors: allSwiftUIColors.map { ColorType($0) },
+        .swiftUIWarm: warmSwiftUIColors.map { ColorType($0) },
+        .swiftUICool: coolSwiftUIColors.map { ColorType($0) },
+        .uiKitWarm: warmUIKitColors.map { ColorType($0) },
+        .uiKitCool: coolUIKitColors.map { ColorType($0) },
+        .uiKitStatic: staticUIKitColors.map { ColorType($0) }
     ]
 }
